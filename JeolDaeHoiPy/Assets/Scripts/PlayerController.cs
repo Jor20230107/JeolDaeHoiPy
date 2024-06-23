@@ -14,4 +14,14 @@ public class PlayerController : MonoBehaviour
         Vector2 move = new Vector2(moveX, moveY);
         transform.Translate(move * moveSpeed * Time.deltaTime);
     }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Debug.Log("Player Hit!");
+            Destroy(collision.gameObject);
+        }
+
+        Destroy(gameObject);
+    }
 }

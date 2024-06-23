@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D collision)
+    void Update()
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Player Hit!");
-            Destroy(collision.gameObject);
-        }
+        CheckIfOutsideCameraView();
+    }
 
-        Destroy(gameObject);
+    void CheckIfOutsideCameraView()
+    {
+        Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
+
+        // 만약 탄환이 카메라 뷰포트 밖으로 나가면 삭제
+        if (viewPos.x < 0 || viewPos.x > 1 || viewPos.y < 0 || viewPos.y > 1)
+        {
+            Destroy(gameObject);
+        }
     }
 }
